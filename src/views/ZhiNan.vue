@@ -20,6 +20,12 @@ export default {
         document.body.style.backgroundColor = "#f4f4f4";
         document.body.style.fontFamily = "宋体";
     },
+    props: {
+    address: {
+      type: String,
+      required: true,
+    },
+  },
     data() {
         return {
             title: "事故处置指南",
@@ -35,7 +41,7 @@ export default {
 
     methods: {
         goHome() {
-            this.$router.push('/');
+            this.$router.push('/' + this.address);
         }
     }
 }

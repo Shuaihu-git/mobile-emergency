@@ -11,14 +11,69 @@
   </template>
   
   <script>
+  import CryptoJS from 'crypto-js';
+  import wx from 'weixin-js-sdk';
+
   export default {
     data() {
       return {
         location: null, // 存储位置信息
         error: null,    // 存储错误信息
+        appId: 'wxb30aa6242a733844', // 替换为你的 appId
+      jsapi_ticket: 'O3SMpm8bG7kJnF36aXbe892WaLKN1DE25bnLckpD0-I-MKV8D4qYJ5jJPWRpJkO0F0gk2aUudchL2AXXVSJEfQ', // 替换为你的 jsapi_ticket（后台生成的）
+      url: window.location.href.split('#')[0], // 当前页面的 URL
+      nonceStr: this.generateNonceStr(), // 随机字符串
+      timestamp: Math.floor(Date.now() / 1000), // 时间戳
+      signature: '' // 用于存储生成的 signature
       };
     },
+    mounted() {
+      this.generateSignature();
+    },
     methods: {
+      // 生成随机字符串
+    generateNonceStr(length = 16) {
+      let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      let str = '';
+      for (let i = 0; i < length; i++) {
+        str += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return str;
+    },
+    // 生成签名
+    generateSignature() {
+      const { jsapi_ticket, timestamp, nonceStr, url } = this;
+      const stringToSign = `jsapi_ticket=${jsapi_ticket}&noncestr=${nonceStr}&timestamp=${timestamp}&url=${url}`;
+      
+      // 使用 SHA1 算法生成签名
+      const signature = CryptoJS.SHA1(stringToSign).toString(CryptoJS.enc.Hex);
+      this.signature = signature;
+      
+      console.log('生成的签名:', signature);
+
+      // 这里你可以把生成的签名传给 wx.config 方法
+      this.configureWxSdk();
+    },
+    // 配置微信 SDK
+    configureWxSdk() {
+      const { appId, timestamp, nonceStr, signature } = this;
+      wx.config({
+        debug: false, // 是否开启调试模式
+        appId: appId, // 公众号的唯一标识
+        timestamp: timestamp, // 时间戳
+        nonceStr: nonceStr, // 随机字符串
+        signature: signature, // 签名
+        jsApiList: ['getLocation', 'openLocation', 'scanQRCode'] // 需要调用的微信 JS API
+      });
+
+      wx.ready(function () {
+        console.log('微信 SDK 配置成功');
+      });
+
+      wx.error(function (res) {
+        console.error('微信 SDK 配置失败:', res);
+      });
+    },
       getLocation() {
         // 检查浏览器是否支持 Geolocation API
         if (navigator.geolocation) {

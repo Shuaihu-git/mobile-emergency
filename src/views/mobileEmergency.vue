@@ -131,7 +131,7 @@ export default {
       }
     },
     openNewPage() {
-      this.$router.push('/zhinan')// 打开内部新页面
+      this.$router.push('/zhinan/'+this.address)// 打开内部新页面
     }
   }
 };

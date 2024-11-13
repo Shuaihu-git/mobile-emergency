@@ -18,9 +18,10 @@ const routes = [
     props: true,
   },
   {
-    path: '/zhinan',
+    path: '/zhinan/:address',
     name: 'ZhiNan',
     component: ZhiNan,
+    props: true,
   },
   {
     path: '/qrcode/:content(.*)', // 路由路径包含参数 :content
