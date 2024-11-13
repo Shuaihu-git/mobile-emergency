@@ -15,13 +15,11 @@
     <p class="address">当前桩号<span class="address-detail"><br>{{ address }}</span></p>
     <!-- <button @click="showMap">显示地图</button> -->
     <div class="btn-container">
-      <button class="btn" @click="makeCall1">快速救援电话1 <br> ({{ mangeMoblie1 }})</button>
-
-      <AppModal :isVisible="isModalVisible" :content="modalContent" @close="closeModal" />
+      <button class="btn" @click="makeCall1"><i class="fas fa-phone icon"></i>快速救援电话1<br>({{ mangeMoblie1 }})</button>
+      <!-- <AppModal :isVisible="isModalVisible" :content="modalContent" @close="closeModal" /> -->
     </div>
-
     <div class="mangeMoblie-container">
-      <button class="mangeMoblie" @click="makeCall2">快速救援电话2<br>({{ mangeMoblie2 }})</button>
+      <button class="mangeMoblie" @click="makeCall2"><i class="fas fa-phone icon"></i>快速救援电话2<br>({{ mangeMoblie2 }})</button>
       <!-- <p class="mangeMoblie" @click="makeCall">拨打管理中心电话({{ mangeMoblie }})</p> -->
     </div>
     
@@ -34,12 +32,12 @@
 <script>
 // import QrcodeVue from 'qrcode.vue';
 // import GMap from '@/components/GMap.vue';
-import AppModal from './AppModal.vue';
+// import AppModal from './AppModal.vue';
 import { ref } from 'vue';
 
 export default {
   components: {
-    AppModal,
+    // AppModal,
     // GMap,
   },
   props: {
@@ -140,6 +138,10 @@ export default {
 </script>
 
 <style scoped>
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
+.icon {
+  margin-right: 8px;
+}
 .header-container{
   /* margin-top: 10px; */
   z-index: -1;
@@ -230,14 +232,14 @@ export default {
 } */
 .btn {
   font-family: '宋体';
-  margin-top: 10%;
+  margin-top: 5%;
   font-size: 30px;
   font-weight: bold;
   /* height: 50px; */
   /* width: 70%; */
   color: whitesmoke;
   border-radius: 10px;
-  background-color: red;
+  background-color: green;
   border: none;
   /* 去除边框 */
   outline: none;
@@ -284,4 +286,37 @@ image-row {
   margin: 0 10px;
   /* 图片之间的间距 */
 }
+/* .phone-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-color: black;
+  border-radius: 50%;
+  margin-right: 8px;
+  position: relative;
+}
+
+.phone-icon::before {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+}
+
+.phone-icon::after {
+  content: '';
+  display: block;
+  width: 2px;
+  height: 6px;
+  background-color: black;
+  position: absolute;
+  bottom: -2px;
+  left: 7px;
+  transform: rotate(45deg);
+} */
 </style>
