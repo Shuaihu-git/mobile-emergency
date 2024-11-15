@@ -178,7 +178,7 @@ export default {
   height: 100%;
   justify-content: center;
   align-items: center;
-  background-image: url("../assets/R-C.jpg");
+  background-image: url("../assets/wuxi.jpg");
   background-size: cover;
   /* 背景图覆盖整个容器 */
   background-position: center;
@@ -197,7 +197,6 @@ export default {
   font-weight: bold;
   /* 设置大小 */
 }
-
 .address-detail {
   font-weight: bold;
   /* 设置加粗 */
