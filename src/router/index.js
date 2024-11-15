@@ -4,7 +4,8 @@ import mobileEmergency from '../views/mobileEmergency.vue';
 import QrCodeGenerator from '../views/QrCodeGenerator.vue';
 import ZhiNan from '@/views/ZhiNan.vue';
 import GPSLocation from '@/views/GPSLocation.vue';
-
+import NewMoblieEmergency from '@/views/newMoblieEmergency.vue';
+import newZhiNan from '@/views/newZhiNan.vue';
 const routes = [
   {
     path: '/',
@@ -21,6 +22,18 @@ const routes = [
     path: '/zhinan/:address',
     name: 'ZhiNan',
     component: ZhiNan,
+    props: true,
+  },
+  {
+    path: '/new/:number',
+    name: 'NewMoblieEmergency',
+    component: NewMoblieEmergency,
+    props: true,
+  },
+  {
+    path: '/new/zhinan/:number',
+    name: 'newZhiNan',
+    component: newZhiNan,
     props: true,
   },
   {

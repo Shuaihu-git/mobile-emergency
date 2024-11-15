@@ -11,7 +11,7 @@
       <img v-for="(image, index) in images" :key="index" :src="image" alt="Image" class="image-item" />
     </div>
     <p class="ps">无锡段一路三方温馨提示：</p>
-    <p class="header">车能移动，先靠至应急车道;<br>车无法移动，人撤至最近护栏外</p>
+    <p class="header">车能移动，先靠至应急车道;<br>车无法移动，人撤至最近护栏外。</p>
     <p class="address">当前桩号<span class="address-detail"><br>{{ address }}</span></p>
     <!-- <button @click="showMap">显示地图</button> -->
     <div class="btn-container">
@@ -33,7 +33,7 @@
 // import QrcodeVue from 'qrcode.vue';
 // import GMap from '@/components/GMap.vue';
 // import AppModal from './AppModal.vue';
-import { ref } from 'vue';
+// import { ref } from 'vue';
 
 export default {
   components: {
@@ -51,6 +51,7 @@ export default {
     },
   },
   mounted() {
+    console.log(this.address);
     // 添加滚动监听器
     window.addEventListener("scroll", this.handleScroll);
   },
@@ -78,10 +79,10 @@ export default {
     };
   },
   setup() {
-    const mapRef = ref(null);
-    return {
-      mapRef,
-    };
+    // const mapRef = ref(null);
+    // return {
+    //   mapRef,
+    // };
   },
   methods: {
     showMap() {
