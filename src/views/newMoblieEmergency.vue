@@ -158,7 +158,7 @@
   }
   .header-text{
     font-family: '宋体';
-    margin-top: 5%;
+    margin-top: 1%;
     font-weight: bold;
     text-shadow: 2px 2px 10px rgb(125, 75, 75);
     font-size: 20px;
