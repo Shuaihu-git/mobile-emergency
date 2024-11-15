@@ -1,7 +1,7 @@
 <template>
     <div class="page-container">
         <button class="floating-button" @click="goHome">返回首页</button>
-        <img src="../assets/zhinan/02-bg.png" alt="背景图" class="bg-image" />
+        <img src="../assets/zhinan/02-bg-1.png" alt="背景图" class="bg-image" />
 
         <div class="container">
 
@@ -95,7 +95,7 @@ margin-top: 21%;
     left: 0;
     width: 100%;
     height: auto;
-    z-index: -1;
+    z-index: 1;
 }
 
 .step-container {

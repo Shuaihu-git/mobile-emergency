@@ -159,12 +159,11 @@
   .header-text{
     font-family: '宋体';
     margin-top: 5%;
-    
     font-weight: bold;
     text-shadow: 2px 2px 10px rgb(125, 75, 75);
     font-size: 20px;
     color: white;
-    margin-bottom: 20%;
+    margin-bottom: 10%;
   }
   .ps{
     font-family: '宋体';
@@ -308,12 +307,12 @@
     /* 图片垂直居中 */
   }
   .image-row {
-    margin-top: 5%;
+    margin-top: 1%;
 
   }
   
   .image-item {
-    margin-top: 5%;
+    margin-top: 1%;
     width: 60px;
     /* 图片的宽度 */
     height: 60px;
