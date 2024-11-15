@@ -1,5 +1,6 @@
 <template>
     <div class="page-container">
+        <button class="floating-button" @click="goHome">返回首页</button>
         <img src="../assets/zhinan/02-bg.png" alt="背景图" class="bg-image" />
 
         <div class="container">
@@ -29,6 +30,12 @@
 
 <script>
 export default {
+    props: {
+    number: {
+      type: String,
+      required: true,
+    },
+  },
     data() {
         return {
             steps: [
@@ -52,6 +59,11 @@ export default {
                 }
             ]
         };
+    },
+    methods: {
+        goHome() {
+            this.$router.push('/new/' + this.number);
+        }
     }
 };
 </script>
@@ -154,5 +166,26 @@ margin-top: 21%;
     margin-top: 10px;
     width: 100%;
     border-radius: 10px;
+}
+/* 悬浮按钮样式 */
+.floating-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    font-size: 16px;
+    z-index: 1000;
+    /* 确保按钮在最上层 */
+    transition: background-color 0.3s;
+}
+
+.floating-button:hover {
+    background-color: #0056b3;
 }
 </style>

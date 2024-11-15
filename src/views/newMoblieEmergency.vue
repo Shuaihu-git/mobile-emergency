@@ -124,7 +124,7 @@
         }
       },
       openNewPage() {
-        this.$router.push('/zhinan/'+this.address)// 打开内部新页面
+        this.$router.push('/new/zhinan/'+this.number)// 打开内部新页面
       }
     }
   };
