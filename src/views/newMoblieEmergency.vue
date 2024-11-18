@@ -295,7 +295,7 @@
     outline: none; 
   } */
   .btn {
-    width:70%;
+    width:80%;
     height: 100px;
     margin-top: 3%;
     font-size: 30px;
@@ -324,7 +324,7 @@
 }
   
   .mangeMoblie {
-    width:70%;
+    width:80%;
     height: 100px;
     margin-top: 50px;
     font-size: 30px;
