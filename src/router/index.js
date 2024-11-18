@@ -6,6 +6,7 @@ import ZhiNan from '@/views/ZhiNan.vue';
 import GPSLocation from '@/views/GPSLocation.vue';
 import NewMoblieEmergency from '@/views/newMoblieEmergency.vue';
 import newZhiNan from '@/views/newZhiNan.vue';
+import mobileEmergencyAdmin from '@/views/mobileEmergencyAdmin.vue';
 const routes = [
   {
     path: '/',
@@ -46,6 +47,12 @@ const routes = [
     path: '/location', // 路由路径包含参数 :content
     name: 'GPSLocation',
     component: GPSLocation,
+    props: true, // 将路由参数作为属性传递给组件
+  },
+  {
+    path: '/admin', // 路由路径包含参数 :content
+    name: 'mobileEmergencyAdmin',
+    component: mobileEmergencyAdmin,
     props: true, // 将路由参数作为属性传递给组件
   },
 ];
