@@ -10,8 +10,15 @@
         <img v-for="(image, index) in images" :key="index" :src="image" alt="Image" class="image-item" />
       </div>
       <p class="ps">无锡段一路三方温馨提示：</p>
-      <p class="header">车能移动 先停靠至应急道 <br>无法移动 人撤离至最近护栏外</p>
-      <p class="address">当前桩号<span class="address-detail"><br>{{ address }}</span></p>
+      <p class="header">车能移动 先停靠至应急车道内<br>无法移动 人撤离至最近护栏外</p>
+      <div class="middle-container">
+        <p class="middle">您的<br>位置</p>
+        <img src="../assets/locationIcon.png" class="location-icon"/>
+          <span class="address">{{ address }}</span>
+
+
+      </div>
+      <!-- <p class="address">当前桩号<span class="address-detail"><br>{{ address }}</span></p> -->
       <!-- <button @click="showMap">显示地图</button> -->
       <div class="btn-container">
         <button class="btn" @click="makeCall1"><i class="fas fa-phone icon"></i>快速救援电话1<br>({{ mangeMoblie1 }})</button>
@@ -140,6 +147,24 @@
     margin-top: 1%;
     width: 30px;
   }
+  .middle-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .middle{
+    font-weight: bold;
+    color: white;
+    font-size: 25px;
+  }
+ .location-icon{
+  margin-left: 15px;
+  width: 50px;
+  height: 50px;
+  margin-right: 5px;
+ }
   .header-container{
     /* margin-top: 10px; */
     /* z-index: -1;
@@ -206,8 +231,8 @@
     /* 设置颜色 */
     font-size: 22px;
     display: flex;
-  justify-content: center; /* 水平居中 */
-  align-items: center; /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
     background-image: url("../assets/01-content.png");
     background-size: auto;
     /* 背景图覆盖整个容器 */
@@ -237,11 +262,12 @@
   
   .address {
     font-family: '宋体';
-    margin-top: 5%;
+    /* margin-top: 5%; */
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 1);
-    font-size: 35px;
+    font-size: 25px;
     font-weight: bold;
     color: white;
+    width: 40%;
   }
   
   /* .btn{
