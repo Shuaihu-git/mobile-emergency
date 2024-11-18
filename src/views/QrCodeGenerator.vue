@@ -23,7 +23,6 @@
     },
     created() {
     // 解码 URL 参数并保存到组件数据中
-    con
     this.decodedContent = decodeURIComponent(this.$route.params.content);
   },
     // props: ['content'], // 接收路由参数 content 作为属性
