@@ -10,7 +10,7 @@ import mobileEmergencyAdmin from '@/views/mobileEmergencyAdmin.vue';
 const routes = [
   {
     path: '/',
-    redirect: '/未知'
+    redirect: '/new/未知'
   },
   {
     // path: '/:adress/:mobile',
