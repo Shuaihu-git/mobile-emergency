@@ -10,7 +10,7 @@
         <img v-for="(image, index) in images" :key="index" :src="image" alt="Image" class="image-item" />
       </div>
       <p class="ps">无锡段一路三方温馨提示：</p>
-      <p class="header">车能移动 先靠至应急车道 <br>车无法移动 人撤至最近护栏外</p>
+      <p class="header">车能移动 先停靠至应急道 <br>无法移动 人撤离至最近护栏外</p>
       <p class="address">当前桩号<span class="address-detail"><br>{{ address }}</span></p>
       <!-- <button @click="showMap">显示地图</button> -->
       <div class="btn-container">
@@ -65,8 +65,9 @@
         isScrollingDown: false,  // 是否正在下滑
         images: [
           require("../assets/RescueEmblem.png"),
-          require("../assets/xingzheng.png"),
+          
           require("../assets/RodeRescue.png"),
+          require("../assets/xingzheng.png"),
         ]
       };
     },
@@ -193,6 +194,7 @@
     background-repeat: no-repeat;
   }
   .header{
+    text-align: left;
     width: 85%;
     height: 10%;
     margin-left: 2%;

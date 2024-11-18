@@ -73,8 +73,9 @@ export default {
       isScrollingDown: false,  // 是否正在下滑
       images: [
         require("../assets/RescueEmblem.png"),
-        require("../assets/xingzheng.png"),
+        
         require("../assets/RodeRescue.png"),
+        require("../assets/xingzheng.png"),
       ]
     };
   },
