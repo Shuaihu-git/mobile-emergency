@@ -19,7 +19,7 @@ export default {
 
 <style>
 #app {
-  font-family: 'SimSun', '宋体', serif;
+  /* font-family: 'SimSun', '宋体', serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

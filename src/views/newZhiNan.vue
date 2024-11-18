@@ -2,7 +2,7 @@
     <div class="page-container">
         <button class="floating-button" @click="goHome">返回首页</button>
         <img src="../assets/zhinan/02-bg-1.png" alt="背景图" class="bg-image" />
-
+        <p class="floating-title">事故处置四步曲</p>
         <div class="container">
 
             <!-- 遍历内容数组，动态渲染每个步骤 -->
@@ -197,6 +197,34 @@ margin-top: 21%;
     z-index: 1000;
     /* 确保按钮在最上层 */
     transition: background-color 0.3s;
+}
+/* 悬浮按钮样式 */
+.floating-title {
+    position: fixed;
+    top: 2.5%;
+    left: 2%;
+    font-weight: bold;
+    padding: 10px 20px;
+    /* background-color: transparent; */
+    color: black;
+    border: none;
+    border-radius: 50px;
+    /* background: #FFFFFF;
+border: 2px solid #252525; */
+    text-shadow: 
+    -1px -1px 0 #ffffff, /* 左上 */
+    1px -1px 0 #ffffff,  /* 右上 */
+    -1px 1px 0 #ffffff,  /* 左下 */
+    1px 1px 0 #ffffff;   /* 右下 */
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 30px;
+    z-index: 1000;
+    /* 确保按钮在最上层 */
+    transition: background-color 0.3s;
+}
+.floating-title:hover {
+    background-color: transparent;
 }
 
 .floating-button:hover {
