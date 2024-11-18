@@ -21,11 +21,11 @@
       <!-- <p class="address">当前桩号<span class="address-detail"><br>{{ address }}</span></p> -->
       <!-- <button @click="showMap">显示地图</button> -->
       <div class="btn-container">
-        <button class="btn" @click="makeCall1"><i class="fas fa-phone icon"></i>快速救援电话1<br>({{ mangeMoblie1 }})</button>
+        <button class="btn" @click="makeCall1"><i class="fas fa-phone icon"></i><br>快速救援电话1<br></button>
         <!-- <AppModal :isVisible="isModalVisible" :content="modalContent" @close="closeModal" /> -->
       </div>
       <div class="mangeMoblie-container">
-        <button class="mangeMoblie" @click="makeCall2"><i class="fas fa-phone icon"></i>快速救援电话2<br>({{ mangeMoblie2 }})</button>
+        <button class="mangeMoblie" @click="makeCall2"><i class="fas fa-phone icon"></i><br>快速救援电话2<br></button>
         <!-- <p class="mangeMoblie" @click="makeCall">拨打管理中心电话({{ mangeMoblie }})</p> -->
       </div>
       
@@ -192,10 +192,15 @@
     margin-bottom: 10%;
   }
   .ps{
+    background-size: cover;
+  /* 背景图覆盖整个容器 */
+  background-position: center;
+  /* 背景图居中显示 */
+  background-repeat: no-repeat;
     font-family: '宋体';
     margin-top: 3%;
     font-weight: bold;
-    color: white;
+    color: blue;
     font-size: 20px;
     background-image: url("../assets/01-ps.png");
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 1);
@@ -235,6 +240,11 @@
     align-items: center; /* 垂直居中 */
     background-image: url("../assets/01-content.png");
     background-size: auto;
+    background-size: cover;
+  /* 背景图覆盖整个容器 */
+  background-position: center;
+  /* 背景图居中显示 */
+  background-repeat: no-repeat;
     /* 背景图覆盖整个容器 */
     background-position: center;
     /* text-shadow: 3px 3px 10px rgb(252, 252, 252); */
@@ -285,6 +295,8 @@
     outline: none; 
   } */
   .btn {
+    width:65%;
+    height: 20%;
     font-family: '宋体';
     margin-top: 3%;
     font-size: 30px;
@@ -298,6 +310,11 @@
     border: none;
     /* 去除边框 */
     outline: none;
+    background-size: cover;
+  /* 背景图覆盖整个容器 */
+  background-position: center;
+  /* 背景图居中显示 */
+  background-repeat: no-repeat;
     /* 去除按钮获得焦点时的外部轮廓 */
     text-align: center;
     background-color: transparent; /* 背景设为透明 */
@@ -308,6 +325,8 @@
 }
   
   .mangeMoblie {
+    width:65%;
+    height: 20%;
     font-family: '宋体';
     margin-top: 50px;
     font-size: 30px;
@@ -321,6 +340,11 @@
     outline: none;
     /* 去除按钮获得焦点时的外部轮廓 */
     text-align: center;
+    background-size: cover;
+  /* 背景图覆盖整个容器 */
+  background-position: center;
+  /* 背景图居中显示 */
+  background-repeat: no-repeat;
   }
   
   image-row {

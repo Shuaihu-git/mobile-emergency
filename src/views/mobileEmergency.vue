@@ -15,11 +15,11 @@
     <p class="address">当前桩号<span class="address-detail"><br>{{ address }}</span></p>
     <!-- <button @click="showMap">显示地图</button> -->
     <div class="btn-container">
-      <button class="btn" @click="makeCall1"><i class="fas fa-phone icon"></i>快速救援电话1<br>({{ mangeMoblie1 }})</button>
+      <button class="btn" @click="makeCall1"><i class="fas fa-phone icon"></i>快速救援电话1</button>
       <!-- <AppModal :isVisible="isModalVisible" :content="modalContent" @close="closeModal" /> -->
     </div>
     <div class="mangeMoblie-container">
-      <button class="mangeMoblie" @click="makeCall2"><i class="fas fa-phone icon"></i>快速救援电话2<br>({{ mangeMoblie2 }})</button>
+      <button class="mangeMoblie" @click="makeCall2"><i class="fas fa-phone icon"></i>快速救援电话2</button>
       <!-- <p class="mangeMoblie" @click="makeCall">拨打管理中心电话({{ mangeMoblie }})</p> -->
     </div>
     
