@@ -51,13 +51,21 @@ export default {
     },
   },
   mounted() {
+     // 在组件挂载时连接 WebSocket
+     this.connectWebSocket();
     console.log(this.address);
+    
     // 添加滚动监听器
     window.addEventListener("scroll", this.handleScroll);
+   
   },
   beforeUnmount() {
     // 组件销毁时移除监听器
     window.removeEventListener("scroll", this.handleScroll);
+  // 在组件销毁时关闭 WebSocket
+  if (this.socket) {
+        this.socket.close();
+      }
   },
   data() {
     return {
@@ -86,6 +94,43 @@ export default {
     // };
   },
   methods: {
+    connectWebSocket() {
+        // 建立 WebSocket 连接
+        this.socket = new WebSocket('ws://192.168.107.4:9000/websocket/client');
+  
+        // 连接打开时触发
+        this.socket.onopen = () => {
+          console.log('WebSocket 已连接');
+          this.sendMessage();
+        };
+  
+        // 接收消息时触发
+        this.socket.onmessage = (event) => {
+          console.log('收到消息：', event.data);
+          this.message = event.data;
+        };
+  
+        // 连接关闭时触发
+        this.socket.onclose = () => {
+          console.log('WebSocket 已关闭');
+        };
+  
+        // 连接出错时触发
+        this.socket.onerror = (error) => {
+          console.error('WebSocket 错误：', error);
+        };
+      },
+      sendMessage() {
+        // 发送消息
+        if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+          const message='CLIENT '+this.address+'处扫码请求救援！！';
+          this.socket.send(message);
+          console.info(message)
+          this.inputMessage = ''; // 清空输入框
+        } else {
+          console.error('WebSocket 未连接');
+        }
+      },
     showMap() {
       this.mapRef.value.open()
     },
