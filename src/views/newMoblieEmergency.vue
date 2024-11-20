@@ -203,7 +203,7 @@
     color: #0C2F8D;
     font-size: 20px;
     background-image: url("../assets/01-ps.png");
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 1);
+    /* text-shadow: 2px 2px 10px rgba(0, 0, 0, 1); */
   }
   .qrcode-container {
     position: fixed;
