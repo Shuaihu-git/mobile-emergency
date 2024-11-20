@@ -56,7 +56,7 @@
   
   <style scoped>
   .log-manager {
-    padding: 20px;
+    /* padding: 20px; */
     font-family: Arial, sans-serif;
     background: #f5f5f5;
     min-height: 100vh;

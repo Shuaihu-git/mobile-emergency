@@ -10,7 +10,7 @@
         <img v-for="(image, index) in images" :key="index" :src="image" alt="Image" class="image-item" />
       </div>
       <p class="ps">无锡段一路三方温馨提示：</p>
-      <p class="header">车能移动 先停靠至应急车道内<br>无法移动 人撤离至最近护栏外</p>
+      <p class="header">车能移动 先停靠至应急道<br>无法移动 人员撤离护栏外</p>
       <div class="middle-container">
         <p class="middle">您的<br>位置</p>
         <img src="../assets/locationIcon.png" class="location-icon"/>
