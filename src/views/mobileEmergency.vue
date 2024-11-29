@@ -96,7 +96,7 @@ export default {
   methods: {
     connectWebSocket() {
         // 建立 WebSocket 连接
-        this.socket = new WebSocket('ws://192.168.107.4:9000/websocket/client');
+        this.socket = new WebSocket('ws://192.168.1.103:9000/websocket/client');
   
         // 连接打开时触发
         this.socket.onopen = () => {
