@@ -64,7 +64,7 @@
         // 二维码内容
         mangeMoblie: this.mobile,
         mangeMoblie1: '0510-88259900',
-        mangeMoblie2: '0510-81810110',
+        mangeMoblie2: '18168869898',
         isModalVisible: false,
         showNextPage: false,
         modalContent: '',
