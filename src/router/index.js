@@ -8,6 +8,7 @@ import NewMoblieEmergency from '@/views/newMoblieEmergency.vue';
 import newZhiNan from '@/views/newZhiNan.vue';
 import mobileEmergencyAdmin from '@/views/mobileEmergencyAdmin.vue';
 import WebSocketTest from '@/views/WebSocketTest.vue';
+import MBBar from '@/views/MBBar.vue';
 const routes = [
   {
     path: '/',
@@ -61,6 +62,12 @@ const routes = [
     name: 'WebSocketTest',
     component: WebSocketTest,
     props: true, // 将路由参数作为属性传递给组件
+  },
+  {
+    path: '/mb',
+    name: 'MBBar',
+    component: MBBar,
+    props: true,
   },
 ];
 
