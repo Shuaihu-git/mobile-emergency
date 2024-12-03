@@ -62,6 +62,12 @@ export default {
     console.log(this.number);
     // 添加滚动监听器
     window.addEventListener("scroll", this.handleScroll);
+    this.getLocation();
+    console.log(this.location);
+    setTimeout(() => {
+      this.sendMessage();
+}, 5000);
+    
   },
   beforeUnmount() {
     // 组件销毁时移除监听器
@@ -73,14 +79,18 @@ export default {
   },
   data() {
     return {
+      location:{
+        longitude: '',
+        latitude: ''
+      },
       address: this.number,
       // 二维码内容
       mangeMoblie: this.mobile,
       mangeMoblie1: '0510-88259900',
       mangeMoblie2: '18168869898',
-      phoneNumber:{
-        number1: '',
-        number2: ''
+      phoneNumber: {
+        // number1: '',
+        // number2: ''
       },
       isModalVisible: false,
       showNextPage: false,
@@ -105,7 +115,7 @@ export default {
         require("../assets/RodeRescue.png"),
         require("../assets/xingzheng.png"),
       ],
-      
+
     };
   },
   setup() {
@@ -116,20 +126,15 @@ export default {
     };
   },
   methods: {
-    getNumbers(){
-      this.phoneNumber = axios.get("http://192.168.10.136:9000/tel/get").then(response => {
-        return response.data;
+    getNumbers() {
+      const data = axios.get("http://192.168.10.136:9000/tel/query").then(response => {
+        this.mangeMoblie1 = response.data.data.number1;
+        this.mangeMoblie2 = response.data.data.number2;
+        return response.data.data;
       });
-      this.phoneNumber.then(result => {
-    const { number1, number2 } = result;
-    this.mangeMoblie1 = number1;
-    this.mangeMoblie2 = number2;
-    console.log(this.mangeMoblie1);
-    console.log(this.mangeMoblie2);
-});
-
+      console.log('数据',data)
     },
-   
+
     connectWebSocket() {
 
       // 建立 WebSocket 连接
@@ -138,7 +143,8 @@ export default {
       // 连接打开时触发
       this.socket.onopen = () => {
         console.log('WebSocket 已连接');
-        this.sendMessage();
+
+
       };
 
       // 接收消息时触发
@@ -158,18 +164,31 @@ export default {
       };
     },
     sendMessage() {
+
       // 发送消息
       if (this.socket && this.socket.readyState === WebSocket.OPEN) {
         // this.queryWeather();
         const content = this.address + '处扫码请求救援！！';
         this.message.content = content;
         this.message.address = this.address;
-        this.message.location = this.location;
+        
         this.message.time = new Date();
-        console.log('时间',this.message.time);
+        console.log('时间', this.message.time);
         this.message.type = '0';
         console.info(this.nowWeather);
         // this.message.weather = this.nowWeather;
+        setTimeout(() => {
+          console.log('发送的消息内容-定位信息', this.location);
+          // console.log('定位成功-经度', this.location.longitude);
+          // console.log('定位成功-维度', this.location.latitude);
+        }, 5000);
+
+        if(this.location!=null){
+          this.message.location = this.location;
+          console.log('发送的消息定位信息-经度', this.location.longitude);
+          console.log('发送的消息定位信息-维度', this.location.latitude);
+        }
+        this.message.location = this.location;
 
         const index = this.address.indexOf('K');
         this.message.zhuangNum = this.address.substring(index);
@@ -231,6 +250,60 @@ export default {
     },
     openNewPage() {
       this.$router.push('/new/zhinan/' + this.number)// 打开内部新页面
+    },
+    getLocation() {
+      // 检查浏览器是否支持 Geolocation API
+      if (navigator.geolocation) {
+        console.log("支持定位");
+        // 请求用户位置
+        navigator.geolocation.getCurrentPosition(
+          this.handlePositionSuccess,
+          this.handlePositionError,
+          {
+            enableHighAccuracy: true,  // 提高定位精度
+            timeout: 10000,            // 请求超时时间
+            maximumAge: 0              // 不使用缓存的位置信息
+          }
+        );
+        console.log("位置地址" + this.location)
+        if (this.location) {
+          console.log("定位成功",this.location);
+          console.log('定位成功-经度', this.location.longitude);
+          console.log('定位成功-维度', this.location.latitude);
+        
+        }
+
+      } else {
+        this.error = "Geolocation 不被该浏览器支持";
+      }
+    },
+        // 处理定位成功
+        handlePositionSuccess(position) {
+      this.location = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      };
+      console.log('定位成功-经度', this.location.longitude);
+      console.log('定位成功-维度', this.location.latitude);
+      this.error = null; // 清除之前的错误信息
+    },
+    // 处理定位失败
+    handlePositionError(error) {
+      switch (error.code) {
+        case error.PERMISSION_DENIED:
+          this.error = "用户拒绝了定位请求";
+          break;
+        case error.POSITION_UNAVAILABLE:
+          this.error = "位置信息不可用";
+          break;
+        case error.TIMEOUT:
+          this.error = "请求超时，请重试";
+          break;
+        default:
+          this.error = "未知错误";
+          break;
+      }
+      this.location = null; // 清除之前的位置数据
     }
   }
 };

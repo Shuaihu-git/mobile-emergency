@@ -17,16 +17,17 @@
       </div>
     </div> -->
     <!-- 悬浮消息组件 -->
-    <!-- <FloatingNotification :newLogs="newLogsCount" @acknowledge="resetNewLogsCount" /> --> 
+     
   <!-- </div> -->
+  <FloatingNotification :newLogs="newLogsCount" @acknowledge="resetNewLogsCount" />
 </template>
 
 <script>
-// import FloatingNotification from "../views/FloatingNotification.vue";
+import FloatingNotification from "../views/FloatingNotification.vue";
 
 export default {
   components: {
-    // FloatingNotification,
+    FloatingNotification,
   },
   data() {
     return {
@@ -38,7 +39,7 @@ export default {
   methods: {
     connectWebSocket() {
       // 创建 WebSocket 连接
-      this.socket = new WebSocket("ws://localhost:9000/websocket/admin");
+      this.socket = new WebSocket("ws://localhost:9000/websocket/admin"+Date.now());
 
       // WebSocket 连接成功
       this.socket.onopen = () => {
