@@ -127,7 +127,7 @@ export default {
   },
   methods: {
     getNumbers() {
-      const data = axios.get("http://221.226.32.250:10003/tel/query").then(response => {
+      const data = axios.get("http://139.198.160.207:8003/tel/query").then(response => {
         this.mangeMoblie1 = response.data.data.number1;
         this.mangeMoblie2 = response.data.data.number2;
         return response.data.data;
@@ -138,7 +138,7 @@ export default {
     connectWebSocket() {
 
       // 建立 WebSocket 连接
-      this.socket = new WebSocket('ws://221.226.32.250:10003/websocket/client');
+      this.socket = new WebSocket('ws://139.198.160.207:8003/websocket/client');
 
       // 连接打开时触发
       this.socket.onopen = () => {
