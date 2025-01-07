@@ -68,7 +68,7 @@ export default {
     },
     methods: {
         goHome() {
-            this.$router.push('/new/' + this.number);
+            this.$router.push('/roadside/' + this.number);
         }
     }
 };

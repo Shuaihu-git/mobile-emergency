@@ -249,7 +249,7 @@ export default {
       }
     },
     openNewPage() {
-      this.$router.push('/new/zhinan/' + this.number)// 打开内部新页面
+      this.$router.push('/roadside/zhinan/' + this.number)// 打开内部新页面
     },
     getLocation() {
       // 检查浏览器是否支持 Geolocation API

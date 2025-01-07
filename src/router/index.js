@@ -12,7 +12,7 @@ import MBBar from '@/views/MBBar.vue';
 const routes = [
   {
     path: '/',
-    redirect: '/new/未知'
+    redirect: '/roadside/未知'
   },
   {
     // path: '/:adress/:mobile',
@@ -28,13 +28,13 @@ const routes = [
     props: true,
   },
   {
-    path: '/new/:number',
+    path: '/roadside/:number',
     name: 'NewMoblieEmergency',
     component: NewMoblieEmergency,
     props: true,
   },
   {
-    path: '/new/zhinan/:number',
+    path: '/roadside/zhinan/:number',
     name: 'newZhiNan',
     component: newZhiNan,
     props: true,
