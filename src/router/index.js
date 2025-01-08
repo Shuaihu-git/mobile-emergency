@@ -15,13 +15,6 @@ const routes = [
     redirect: '/roadside/未知'
   },
   {
-    // path: '/:adress/:mobile',
-    path: '/:adress',
-    name: 'mobileEmergency',
-    component: mobileEmergency,
-    props: true,
-  },
-  {
     path: '/zhinan/:address',
     name: 'ZhiNan',
     component: ZhiNan,
