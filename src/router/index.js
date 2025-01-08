@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
-// import HomePage from '../views/HomePage.vue';
-import mobileEmergency from '../views/mobileEmergency.vue';
+
+
 import QrCodeGenerator from '../views/QrCodeGenerator.vue';
 import ZhiNan from '@/views/ZhiNan.vue';
 import GPSLocation from '@/views/GPSLocation.vue';
