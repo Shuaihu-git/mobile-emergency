@@ -22,11 +22,11 @@
     <!-- <p class="address">当前桩号<span class="address-detail"><br>{{ address }}</span></p> -->
     <!-- <button @click="showMap">显示地图</button> -->
     <div class="btn-container">
-      <button class="btn" @click="makeCall1">快速报警救援电话1<br></button>
+      <button class="btn" @click="makeCall1">快速报警电话(事故)<br></button>
       <!-- <AppModal :isVisible="isModalVisible" :content="modalContent" @close="closeModal" /> -->
     </div>
     <div class="mangeMoblie-container">
-      <button class="mangeMoblie" @click="makeCall2">快速报警救援电话2<br></button>
+      <button class="mangeMoblie" @click="makeCall2">快速报警电话(救援)<br></button>
       <!-- <p class="mangeMoblie" @click="makeCall">拨打管理中心电话({{ mangeMoblie }})</p> -->
     </div>
 

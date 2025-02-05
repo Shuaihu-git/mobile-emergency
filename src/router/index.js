@@ -1,25 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 
-import QrCodeGenerator from '../views/QrCodeGenerator.vue';
-import ZhiNan from '@/views/ZhiNan.vue';
-import GPSLocation from '@/views/GPSLocation.vue';
+// import QrCodeGenerator from '../views/QrCodeGenerator.vue';
+// import ZhiNan from '@/views/ZhiNan.vue';
+// import GPSLocation from '@/views/GPSLocation.vue';
 import NewMoblieEmergency from '@/views/newMoblieEmergency.vue';
 import newZhiNan from '@/views/newZhiNan.vue';
-import mobileEmergencyAdmin from '@/views/mobileEmergencyAdmin.vue';
-import WebSocketTest from '@/views/WebSocketTest.vue';
-import MBBar from '@/views/MBBar.vue';
+// import mobileEmergencyAdmin from '@/views/mobileEmergencyAdmin.vue';
+// import WebSocketTest from '@/views/WebSocketTest.vue';
+// import MBBar from '@/views/MBBar.vue';
 const routes = [
-  {
-    path: '/',
-    redirect: '/roadside/未知'
-  },
-  {
-    path: '/zhinan/:address',
-    name: 'ZhiNan',
-    component: ZhiNan,
-    props: true,
-  },
   {
     path: '/roadside/:number',
     name: 'NewMoblieEmergency',
@@ -31,37 +21,7 @@ const routes = [
     name: 'newZhiNan',
     component: newZhiNan,
     props: true,
-  },
-  {
-    path: '/qrcode/:content(.*)', // 路由路径包含参数 :content
-    name: 'QrCodeGenerator',
-    component: QrCodeGenerator,
-    props: true, // 将路由参数作为属性传递给组件
-  },
-  {
-    path: '/location', // 路由路径包含参数 :content
-    name: 'GPSLocation',
-    component: GPSLocation,
-    props: true, // 将路由参数作为属性传递给组件
-  },
-  {
-    path: '/admin', // 路由路径包含参数 :content
-    name: 'mobileEmergencyAdmin',
-    component: mobileEmergencyAdmin,
-    props: true, // 将路由参数作为属性传递给组件
-  },
-  {
-    path: '/ws', // 路由路径包含参数 :content
-    name: 'WebSocketTest',
-    component: WebSocketTest,
-    props: true, // 将路由参数作为属性传递给组件
-  },
-  {
-    path: '/mb',
-    name: 'MBBar',
-    component: MBBar,
-    props: true,
-  },
+  }
 ];
 
 const router = createRouter({

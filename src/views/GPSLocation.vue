@@ -64,7 +64,7 @@ export default {
      async getLocationByIp(ip) {
       try {
         console.log('开始通过公网 IP 地址获取详细地址',this.publicIp);
-        const response = await axios.get('https://restapi.amap.com/v3/ip?key=ccbe1ab050992d2c47eaef6606410913&ip=' + ip);
+        const response = await axios.get('https://restapi.amap.com/v3/ip?key=11&ip=' + ip);
         console.log('通过公网 IP 地址获取详细地址:', response.data);
         this.gLocation = response.data;
         console.log('通过公网 IP 地址获取详细地址', this.gLocation);
@@ -72,12 +72,12 @@ export default {
         console.error('通过公网 IP 地址获取详细地址', error);
       }
     },
-    //https://restapi.amap.com/v3/staticmap?location=118.866454,32.012506&zoom=16&size=500*500&markers=mid,0xFF0000,A:118.866454,32.012506&key=ccbe1ab050992d2c47eaef6606410913
+    //https://restapi.amap.com/v3/staticmap?location=118.866454,32.012506&zoom=16&size=500*500&markers=mid,0xFF0000,A:118.866454,32.012506&key=111
     async getLocationIamge(){
       try {
         const location = this.location.longitude+','+this.location.latitude;
         console.log('地址拼接',location);
-        const response = await fetch('https://restapi.amap.com/v3/staticmap?location='+location+'&zoom=16&size=400*400&markers=mid,0xFF0000,A:'+location+'&key=ccbe1ab050992d2c47eaef6606410913',
+        const response = await fetch('https://restapi.amap.com/v3/staticmap?location='+location+'&zoom=16&size=400*400&markers=mid,0xFF0000,A:'+location+'&key=111',
         {
           method: 'GET',
           headers: {
