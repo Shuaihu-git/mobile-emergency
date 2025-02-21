@@ -1,5 +1,4 @@
 <template>
-  <!-- <GMap ref="mapRef"></GMap> -->
   <div class="qrcode-container">
 
     <div class="header-container" @touchstart="handleTouchStart" @touchmove="handleTouchMove" @scroll="handleScroll"
@@ -19,17 +18,16 @@
 
 
     </div>
-    <!-- <p class="address">当前桩号<span class="address-detail"><br>{{ address }}</span></p> -->
-    <!-- <button @click="showMap">显示地图</button> -->
     <div class="btn-container">
       <button class="btn" @click="makeCall1">快速报警电话(事故)<br></button>
-      <!-- <AppModal :isVisible="isModalVisible" :content="modalContent" @close="closeModal" /> -->
+      <!-- <AppModal :isVisible="isModalVisible1" :content="makeCall_1" @close="closeModal1" @makeCall="makeCall1" /> -->
     </div>
     <div class="mangeMoblie-container">
-      <button class="mangeMoblie" @click="makeCall2">快速报警电话(救援)<br></button>
+      <button class="btn" @click="makeCall2">快速报警电话(救援)<br></button>
+      <!-- <button class="mangeMoblie" @click="makeCall2">快速报警电话(救援)<br></button> -->
       <!-- <p class="mangeMoblie" @click="makeCall">拨打管理中心电话({{ mangeMoblie }})</p> -->
     </div>
-
+    <!-- <AppModal :isVisible="isModalVisible" :content="makeCall_2" @close="closeModal" @makeCall="handleMakeCall" /> -->
   </div>
 
 
@@ -39,6 +37,7 @@
 <script>
 import { ref } from 'vue';
 import axios from 'axios';
+
 
 export default {
   props: {
@@ -55,19 +54,28 @@ export default {
     // 在这里执行你想要在mounted之前进行的操作
     console.log('在组件即将挂载到DOM之前执行此操作');
     this.getNumbers();
+    this.getUUID()
+    this.connectWebSocket();
+
+  },
+  beforeUpdate() {
+    // 在这里执行你想要在mounted之前进行的操作
+    console.log('在组件即将挂载到DOM之前执行此操作');
+  
 
   },
   mounted() {
-    this.connectWebSocket();
+    
     console.log(this.number);
     // 添加滚动监听器
     window.addEventListener("scroll", this.handleScroll);
     this.getLocation();
     console.log(this.location);
     setTimeout(() => {
-      this.sendMessage();
-}, 5000);
-    
+      this.sendMessage('2','0')
+}, 1000);
+     // 每隔 3 秒定时获取位置
+     setInterval(this.getLocation, 1000);
   },
   beforeUnmount() {
     // 组件销毁时移除监听器
@@ -79,10 +87,22 @@ export default {
   },
   data() {
     return {
+      prefix: 'http://localhost:9000',
+      https_prefix: 'https://rescue.jsexpressway.com/backend',
+      ws_prefix: 'ws://localhost:9000',
+      wss_prefix: 'wss://rescue.jsexpressway.com/backend',
+      uuid:'',
+      reconnectInterval: null, // 存储重连定时器
+      reconnectAttempts: 0, // 存储重连尝试次数
+      maxReconnectAttempts: 30000000000000, // 最大重连尝试次数
+      reconnectTimeout: 5000 ,// 重连超时时间（毫秒）
       location:{
         longitude: '',
         latitude: ''
       },
+      scanTime:null,
+      makeCall_1:"makeCall1",
+      makeCall_2:"makeCall2",
       address: this.number,
       // 二维码内容
       mangeMoblie: this.mobile,
@@ -93,12 +113,17 @@ export default {
         // number2: ''
       },
       isModalVisible: false,
+      callMethod: '',
+      closeMethod: '',
       showNextPage: false,
       message: {
         content: '',
         zhuangNum: '',
         time: '',
-        type: '待处理',
+        type: '',
+        businessType: '',
+        call: '',
+        uuid: '',
         address: '',
         location: {
           longitude: '',
@@ -127,7 +152,8 @@ export default {
   },
   methods: {
     getNumbers() {
-      const data = axios.get("https://rescue.jsexpressway.com/backend/tel/query").then(response => {
+      // const data = axios.get("https://rescue.jsexpressway.com/backend/tel/query").then(response => {
+      const data = axios.get(this.https_prefix+"/tel/query").then(response => {
         this.mangeMoblie1 = response.data.data.number1;
         this.mangeMoblie2 = response.data.data.number2;
         return response.data.data;
@@ -138,7 +164,8 @@ export default {
     connectWebSocket() {
 
       // 建立 WebSocket 连接
-      this.socket = new WebSocket('wss://rescue.jsexpressway.com/backend/websocket/client');
+      // this.socket = new WebSocket('wss://rescue.jsexpressway.com/backend/websocket/client'+new Date().getTime());
+      this.socket = new WebSocket(this.wss_prefix+'/websocket/client'+new Date().getTime());
 
       // 连接打开时触发
       this.socket.onopen = () => {
@@ -156,6 +183,17 @@ export default {
       // 连接关闭时触发
       this.socket.onclose = () => {
         console.log('WebSocket 已关闭');
+        // 检查是否达到最大重连尝试次数
+        if (this.reconnectAttempts < this.maxReconnectAttempts) {
+          this.reconnectAttempts++;
+          console.log(`尝试重连，第 ${this.reconnectAttempts} 次`);
+          // 启动重连定时器
+          this.reconnectInterval = setTimeout(() => {
+            this.connectWebSocket();
+          }, this.reconnectTimeout);
+        } else {
+          console.error("达到最大重连次数，放弃重连");
+        }
       };
 
       // 连接出错时触发
@@ -163,19 +201,22 @@ export default {
         console.error('WebSocket 错误：', error);
       };
     },
-    sendMessage() {
-
+    sendMessage(businessType,call) {
       // 发送消息
       if (this.socket && this.socket.readyState === WebSocket.OPEN) {
         // this.queryWeather();
-        const content = this.address + '处扫码请求救援！！';
+        const content = this.address;
         this.message.content = content;
         this.message.address = this.address;
-        
-        this.message.time = new Date();
+        if (businessType === '2') {
+          this.scanTime = new Date();
+        }
+        this.message.time = this.scanTime;
         console.log('时间', this.message.time);
         this.message.type = '0';
-        console.info(this.nowWeather);
+        this.message.businessType = businessType;
+        this.message.call = call;
+        this.message.uuid = this.uuid;
         // this.message.weather = this.nowWeather;
         setTimeout(() => {
           console.log('发送的消息内容-定位信息', this.location);
@@ -192,10 +233,10 @@ export default {
 
         const index = this.address.indexOf('K');
         this.message.zhuangNum = this.address.substring(index);
-        console.log(this.message);
+        // console.log(this.message);
         const object = JSON.stringify(this.message);
         this.socket.send(object);
-        console.info(this.message)
+        // console.info(this.message)
       } else {
         console.error('WebSocket 未连接');
       }
@@ -204,21 +245,29 @@ export default {
       this.mapRef.value.open()
     },
     makeCall1() {
+      console.log('makeCall1');
       this.getNumbers();
+      this.sendMessage(0,1);
+      this.isModalVisible = false;
       // 设置拨打电话的链接
       window.location.href = "tel:" + this.mangeMoblie1;
     },
     makeCall2() {
       // 设置拨打电话的链接
+      console.log('makeCall2');
       this.getNumbers();
+      this.sendMessage(1,2);
+      this.isModalVisible = false;
       window.location.href = "tel:" + this.mangeMoblie2;
     },
     clickRescue() {
       //显示子页面 居中显示救援请求已发送请移动至安全位置等待救援 左按钮 拨打电话 右按钮 等待救援
       alert("救援请求已发送请移动至安全位置等待救援");
     },
-    openModal(content) {
-      this.modalContent = content;
+    openModal(callMethod) {
+      console.log(callMethod)
+      this.callMethod = callMethod;
+      // this.closeMethod = closeMethod;
       this.isModalVisible = true; // 打开对话框
     },
     handleTouchStart(event) {
@@ -236,6 +285,20 @@ export default {
     },
     closeModal() {
       this.isModalVisible = false; // 关闭对话框
+      if (this.callMethod === 'makeCall1') {
+        this.sendMessage('0','');
+    } else if (this.callMethod === 'makeCall2') {
+      this.sendMessage('1','');
+    }
+      
+    },
+    handleMakeCall() {
+      console.log('handleMakeCall');
+    if (this.callMethod === 'makeCall1') {
+      this.makeCall1();
+    } else if (this.callMethod === 'makeCall2') {
+      this.makeCall2();
+    }
     },
     handleScroll(event) {
       const scrollTop = event.target.scrollTop;
@@ -304,6 +367,12 @@ export default {
           break;
       }
       this.location = null; // 清除之前的位置数据
+    },
+    getUUID(){
+      axios.get(this.https_prefix+"/rrqc/uuid").then(response => {
+        console.log('uuid',response.data.msg);
+        this.uuid = response.data.msg;
+      });
     }
   }
 };

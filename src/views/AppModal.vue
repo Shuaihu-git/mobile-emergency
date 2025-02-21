@@ -2,10 +2,10 @@
   <div v-if="isVisible" class="modal-overlay">
     <div class="ConsumerModal">
       <button @click="closeModal" class="close-btn"></button>
-      <h2 class="title">救援请求已发送</h2>
-      <p class="content">请移动至安全位置</p>
-      <button class="call-btn" @click="makeCall(this.content)">拨打电话</button>
-      <button class="wait-btn" @click="closeModal">等待救援</button>
+      <h2 class="title">是否拨打电话？</h2>
+      <!-- <p class="content">请移动至安全位置</p> -->
+      <button class="call-btn" @click="makeCall">拨打电话</button>
+      <button class="wait-btn" @click="closeModal">返回</button>
     </div>
   </div>
 </template>
@@ -27,9 +27,10 @@ export default {
     closeModal() {
       this.$emit('close'); // 向父组件发送关闭事件
     },
-    makeCall(mangeMoblie) {
+    makeCall() {
       // 设置拨打电话的链接
-      window.location.href = "tel:" + mangeMoblie;
+      console.log('子组件makeCall');
+      this.$emit('makeCall');
     },
   }
 }
@@ -67,7 +68,7 @@ export default {
   margin-top: auto;
   margin-left: 10px;
   font-size: 20px;
-  color: red;
+  color: rgb(186, 179, 179);
   font-family: '宋体';
 }
 
@@ -78,8 +79,8 @@ export default {
   border-radius: 5%;
   border: none;
   outline: none;
-  color: white;
-  background-color: green;
+  color: blueviolet;
+  background-color: white;
 }
 
 .close-btn {
@@ -88,7 +89,7 @@ export default {
   margin-right: 20px;
   top: 10px;
   right: 10px;
-  background-color: blueviolet;
+  color: blueviolet;
   border: none;
   border-radius: 8px;
   background: transparent;
@@ -103,6 +104,8 @@ export default {
   border: none;
   outline: none;
   color: white;
-  background-color: blueviolet;
+  /* background-color: blueviolet; */
+  color: blueviolet;
+  background-color: white;
 }
 </style>
